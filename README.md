@@ -23,3 +23,5 @@ List of programs:
 15. filezilla
 16. git
 19. nodeJs
+
+To run script, main.sh needs to be executed. Sripts like downloadFx, questionFx and writeFx contains helper functions required in main script.

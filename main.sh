@@ -1,5 +1,8 @@
 #!/bin/bash
 
+source downloadFx.sh
+source writeFx.sh
+source questionFx.sh
 
 ############################################
 ## VARIABLES
@@ -8,94 +11,6 @@
 #jetBrains url
 jetbrains_url=https://data.services.jetbrains.com/products/download
 
-############################################
-## Checking correct answer
-############################################
-
-function question()
-{
-	read answer
-	while [[ $answer != @($1|$2)* ]];
-	 do
-	 echo '('$1'/'$2')'
-	 read answer;
-	done;
-
-if [ $answer == $1 ]
-then
-	echo true
-else
-	echo false;
-fi;
-}
-
-############################################
-## Stopping script and waiting for 
-## user reaction
-############################################
-
-function enter()
-{
-	print 'blue'
-	echo 'Press ENTER to continue';
-	read enter;
-	print 'white'
-}
-
-############################################
-## Changing font color
-############################################
-
-function font()
-{
-	case $1 in
-		"white" )
-			color=39
-			;;
-		"green" )
-			color=32
-		;;
-		"yellow" )
-			color=33
-		;;
-		"blue" )
-			color=34
-		;;
-	esac
-	echo -e "\e[${color}m"
-}
-
-############################################
-## Prints string with color and optional
-## parameter
-## string $1 color
-## string $2 string to be print
-## string $3 optional parametr eg. version
-############################################
-function print()
-{
-	font $1
-	echo $2 $3
-	font 'white'
-}
-
-############################################
-## Download and install program in /opt/
-## string $1 url to download
-## string $2 filename 
-## string $3 directory name
-############################################
-function download()
-{
-	url=$1
-	filename=$2
-	directory=$3
-
-	wget $url -O $filename --no-check-certificate
-	sudo mv $PWD/$filename /opt/
-	sudo tar -xvf /opt/$filename -C /opt/
-	sudo rm /opt/$filename
-}
 
 ############################################
 ## APACHE 2
