@@ -35,14 +35,14 @@ print 'yellow' 'Insert php version to install (eg. 7.0): '
 
 read version;
 
-if [ $version = 7.1 ]
+if [ $version = 7.1 || $version = 7.0 ]
 then
 	sudo apt-get install -y python-software-properties
 	sudo add-apt-repository -y ppa:ondrej/php
 	sudo apt-get update -y
 fi;
 
-sudo apt install 'php'$version 'php'$version'-bcmath' 'php'$version'-curl' 'php'$version'-json' 'php'$version'-mbstring' 'php'$version'-mysql' 'php'$version'-mcrypt' 'php'$version'-xml' 'php'$version'-zip'  'php'$version'-soap' -y
+sudo apt install 'php'$version 'php'$version'-bcmath' 'php'$version'-curl' 'php'$version'-json' 'php'$version'-mbstring' 'php'$version'-mysql' 'php'$version'-mcrypt' 'php'$version'-xml' 'php'$version'-zip'  'php'$version'-soap' 'php'$version'-gd' -y
 sudo apt install libapache2-mod-php$version -y
 sudo service apache2 restart
 
@@ -110,9 +110,11 @@ print 'yellow' 'Would You like to install sublime-text3? (y/n)'
 result=$(question y n)
 if [ "$result" = true ]
 	then
-	sudo add-apt-repository ppa:webupd8team/sublime-text-3
+	wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
+	sudo apt-get install apt-transport-https
+	echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
 	sudo apt-get update
-	sudo apt-get install sublime-text-installer
+	sudo apt-get install sublime-text
 
 ############################################
 enter
