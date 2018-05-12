@@ -29,13 +29,24 @@ enter
 ############################################
 
 ############################################
+## CURL
+############################################
+
+print 'yellow' 'Installing curl'
+sudo apt install curl -y
+
+############################################
+enter
+############################################
+
+############################################
 ## PHP
 ############################################
 print 'yellow' 'Insert php version to install (eg. 7.0): '
 
 read version;
 
-if [ $version = 7.1 || $version = 7.0 ]
+if [ $version != 7.2 ]
 then
 	sudo apt-get install -y python-software-properties
 	sudo add-apt-repository -y ppa:ondrej/php
@@ -91,12 +102,7 @@ enter
 print 'yellow' 'Would You like to install PhpUnit globally? (y/n)'
 result=$(question y n)
 if [ "$result" = true ] 
-	then
-	wget https://phar.phpunit.de/phpunit-6.4.phar
-	chmod +x phpunit-6.4.phar
-	sudo mv phpunit-6.4.phar /usr/local/bin/phpunit
-	print 'blue' 'Installed phpUnit version: '
-	phpunit --version
+	sudo apt install phpunit -y
 
 ############################################
 enter
@@ -177,6 +183,7 @@ print 'yellow' 'Would You like to install Postman? (y/n)'
 result=$(question y n)
 if [ "$result" = true ] 
 	then
+	sudo apt install libgconf2-4
 	url=https://dl.pstmn.io/download/latest/linux64
 	download $url 'postman.tar.bz' 'postman'
 
@@ -243,9 +250,6 @@ print 'yellow' 'Would You like to install Filezilla? (y/n)'
 result=$(question y n)
 if [ "$result" = true ] 
 	then
-	sudo sh -c 'echo "deb http://archive.getdeb.net/ubuntu xenial-getdeb apps" >> /etc/apt/sources.list.d/getdeb.list'
-	wget -q -O - http://archive.getdeb.net/getdeb-archive.key | sudo apt-key add -
-	sudo apt update
 	sudo apt install filezilla -y
 
 ############################################
@@ -299,8 +303,7 @@ print 'yellow' 'Do You want to install NodeJs? (y/n)'
 result=$(question y n)
 if [ "$result" = true ] 
 	then
-	curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
-	sudo apt-get install -y nodejs
+	sudo apt install -y nodejs
 
 ############################################
 enter
